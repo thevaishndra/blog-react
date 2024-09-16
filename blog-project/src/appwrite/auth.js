@@ -1,11 +1,13 @@
+// Import the Appwrite client library and any other necessary modules.
 import conf from "../conf/conf";
 import {Client, Account, ID} from "appwrite";
 
-
-export class AuthService{
+// Create a new instance of the Appwrite client.
+export class AuthService{//authentication related tasks, 2 properties client & account
     client = new Client();
     account;
 
+// Set the endpoint and project ID for the client using the configuration values.
     constructor() {
         this.client
             .setEndpoint(conf.appwriteUrl)
@@ -13,6 +15,7 @@ export class AuthService{
             this.account = new Account(this.client);
     }
 
+// Create a new instance of the Account class, passing the client instance as a parameter.
     async CreateAccount({email, password, name}){
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name)
