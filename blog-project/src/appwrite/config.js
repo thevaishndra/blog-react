@@ -7,19 +7,20 @@ export class Service{
     bucket;
     constructor(){
         this.client
-        .setEndpoint(conf.appwriteUrl)
-        .setProject(conf.appwriteProjectId);
+        .setEndpoint(conf.appwriteUrl)//Sets the server's address
+        .setProject(conf.appwriteProjectId);// Sets the project ID
         this.databases = new Databases(this.client);
         this.bucket = new Storage(this.client);
     }
 
+    //Manage blog posts (create, update, delete, get).
     async createPost({title, slug, content, featuredImage, status, userId}){
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                slug,
-                {
+                slug,//The slug (unique identifier) of the blog post
+                {//Contains blog post data
                     title,
                     content,
                     featuredImage,
@@ -92,7 +93,7 @@ export class Service{
         }
     }
 
-    //File Upload Service
+    //File Upload Service -> Handle files (upload, delete, preview).
 
     async uploadFile(file){
         try {

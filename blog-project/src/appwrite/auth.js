@@ -9,17 +9,18 @@ export class AuthService{//authentication related tasks, 2 properties client & a
 
 // Set the endpoint and project ID for the client using the configuration values.
     constructor() {
-        this.client
+        this.client//it first sets up where it will send and receive messages
             .setEndpoint(conf.appwriteUrl)
             .setProject(conf.appwriteProjectId);
             this.account = new Account(this.client);
     }
 
 // Create a new instance of the Account class, passing the client instance as a parameter.
+
     async CreateAccount({email, password, name}){
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name)
-            if (userAccount){
+            if (userAccount){//When await is used, the code execution is paused at that point, and the function returns a promise. The execution is resumed when the promise is resolved or rejected, and the value of the promise is returned.
                 return this.login({email, password});
             }
             else{
@@ -58,5 +59,5 @@ export class AuthService{//authentication related tasks, 2 properties client & a
 
 
 
-const authService = new AuthService();
+const authService = new AuthService();//creates a new object (or instance) of the AuthService
 export default authService
